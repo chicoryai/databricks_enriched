@@ -1,0 +1,429 @@
+{
+  "tables": [
+    {
+      "table_name": "accounts",
+      "columns": [
+        {
+          "column_name": "id",
+          "datatype": "string",
+          "sample_value": "40ce0a07-8c6e-451c-b6e5-fd21de010fce"
+        },
+        {
+          "column_name": "customer_id",
+          "datatype": "string",
+          "sample_value": "506335bb-a43c-47a6-bc63-43de9eb24958"
+        },
+        {
+          "column_name": "branch_id",
+          "datatype": "string",
+          "sample_value": "22be3d32-982b-4250-b058-29e47f0b72f0"
+        },
+        {
+          "column_name": "currency_code",
+          "datatype": "string",
+          "sample_value": "INR"
+        },
+        {
+          "column_name": "balance",
+          "datatype": "decimal",
+          "sample_value": "42047.91"
+        }
+      ],
+      "business_process_overview": "Stores customer account details (owner, branch, currency and balance) and serves as the anchor for transactions, payments, loans and cards. [Updated_financial_schema.pdf p.1]"
+    },
+    {
+      "table_name": "cards",
+      "columns": [
+        {
+          "column_name": "id",
+          "datatype": "string",
+          "sample_value": "ba060f66-1ca0-4f13-bceb-cafbbc3439ec"
+        },
+        {
+          "column_name": "account_id",
+          "datatype": "string",
+          "sample_value": "e50e202e-094e-4af5-baf0-205d982f1d76"
+        },
+        {
+          "column_name": "type",
+          "datatype": "string",
+          "sample_value": "credit"
+        }
+      ],
+      "business_process_overview": "Holds payment-card records linked to accounts, enabling card issuance, usage tracking and fraud monitoring. [Updated_financial_schema.pdf p.1]"
+    },
+    {
+      "table_name": "departments",
+      "columns": [
+        {
+          "column_name": "id",
+          "datatype": "string",
+          "sample_value": "d213f493-3e4c-4c2e-9090-1d5216370f8d"
+        },
+        {
+          "column_name": "name",
+          "datatype": "string",
+          "sample_value": "HR"
+        }
+      ],
+      "business_process_overview": "Catalogues organisational departments for HR management and cost-centre reporting. [Updated_financial_schema.pdf p.2]"
+    },
+    {
+      "table_name": "employees",
+      "columns": [
+        {
+          "column_name": "id",
+          "datatype": "string",
+          "sample_value": "259bafad-49fa-4352-adaa-b23c2d62ed48"
+        },
+        {
+          "column_name": "department_id",
+          "datatype": "string",
+          "sample_value": "6e5e4dad-6f65-42da-bf10-81202699df60"
+        },
+        {
+          "column_name": "branch_id",
+          "datatype": "string",
+          "sample_value": "daaeaac2-39bc-46c1-93bd-2629cad3e0ab"
+        }
+      ],
+      "business_process_overview": "Maintains employee records and their placement within departments and branches. [Updated_financial_schema.pdf p.2]"
+    },
+    {
+      "table_name": "fixed_audit_logs",
+      "columns": [
+        {
+          "column_name": "id",
+          "datatype": "string",
+          "sample_value": "14bccd21-71d7-4c20-8a1d-251f836f52e1"
+        },
+        {
+          "column_name": "entity",
+          "datatype": "string",
+          "sample_value": "loans"
+        },
+        {
+          "column_name": "entity_id",
+          "datatype": "string",
+          "sample_value": "d9f8fba5-5155-4d25-9736-16130e96d366"
+        },
+        {
+          "column_name": "action",
+          "datatype": "string",
+          "sample_value": "delete"
+        },
+        {
+          "column_name": "timestamp",
+          "datatype": "timestamp",
+          "sample_value": "2024-08-09T03:22:56.810993"
+        }
+      ],
+      "business_process_overview": "Captures an immutable trail of entity changes for compliance, security and operational forensics. [Updated_financial_schema.pdf p.1]"
+    },
+    {
+      "table_name": "fixed_branches",
+      "columns": [
+        {
+          "column_name": "id",
+          "datatype": "string",
+          "sample_value": "a8d21475-76f9-47a9-8879-473b97ed23a9"
+        },
+        {
+          "column_name": "name",
+          "datatype": "string",
+          "sample_value": "Hamhung Branch"
+        },
+        {
+          "column_name": "country_code",
+          "datatype": "string",
+          "sample_value": "ZA"
+        }
+      ],
+      "business_process_overview": "Reference list of physical branches, supporting location-based operations and reporting. [Updated_financial_schema.pdf p.1]"
+    },
+    {
+      "table_name": "fixed_country_ref",
+      "columns": [
+        {
+          "column_name": "code",
+          "datatype": "string",
+          "sample_value": "US"
+        },
+        {
+          "column_name": "name",
+          "datatype": "string",
+          "sample_value": "United States"
+        }
+      ],
+      "business_process_overview": "Master table for ISO country codes used across customer, branch and regulatory data. [Updated_financial_schema.pdf p.2]"
+    },
+    {
+      "table_name": "fixed_currencies",
+      "columns": [
+        {
+          "column_name": "code",
+          "datatype": "string",
+          "sample_value": "USD"
+        },
+        {
+          "column_name": "name",
+          "datatype": "string",
+          "sample_value": "US Dollar"
+        }
+      ],
+      "business_process_overview": "Standardises currency codes and names for all monetary fields. [Updated_financial_schema.pdf p.2]"
+    },
+    {
+      "table_name": "fixed_customers",
+      "columns": [
+        {
+          "column_name": "id",
+          "datatype": "string",
+          "sample_value": "3bdd5bf4-caa1-45c2-baf2-96608362e7d7"
+        },
+        {
+          "column_name": "name",
+          "datatype": "string",
+          "sample_value": "Mary Edwards"
+        },
+        {
+          "column_name": "email",
+          "datatype": "string",
+          "sample_value": "mary.edwards@example.com"
+        },
+        {
+          "column_name": "dob",
+          "datatype": "date",
+          "sample_value": "1953-08-03"
+        },
+        {
+          "column_name": "country_code",
+          "datatype": "string",
+          "sample_value": "IN"
+        }
+      ],
+      "business_process_overview": "Stores customer identity and contact details to support onboarding, servicing and KYC. [Updated_financial_schema.pdf p.1]"
+    },
+    {
+      "table_name": "fixed_exchange_rates",
+      "columns": [
+        {
+          "column_name": "id",
+          "datatype": "string",
+          "sample_value": "71174c80-0a28-45f9-928b-2b72a6410f69"
+        },
+        {
+          "column_name": "from_currency",
+          "datatype": "string",
+          "sample_value": "GBP"
+        },
+        {
+          "column_name": "to_currency",
+          "datatype": "string",
+          "sample_value": "EUR"
+        },
+        {
+          "column_name": "rate",
+          "datatype": "decimal",
+          "sample_value": "1.1732"
+        }
+      ],
+      "business_process_overview": "Holds daily FX rates to enable multi-currency valuation and settlement. [Updated_financial_schema.pdf p.2]"
+    },
+    {
+      "table_name": "fixed_products",
+      "columns": [
+        {
+          "column_name": "id",
+          "datatype": "string",
+          "sample_value": "055c4741-f67e-402d-bf77-9c246c616b32"
+        },
+        {
+          "column_name": "name",
+          "datatype": "string",
+          "sample_value": "Basic Checking Account"
+        }
+      ],
+      "business_process_overview": "Master list of financial products for sales, pricing and portfolio reporting. [Updated_financial_schema.pdf p.2]"
+    },
+    {
+      "table_name": "fraud_flags",
+      "columns": [
+        {
+          "column_name": "transaction_id",
+          "datatype": "string",
+          "sample_value": "d0fef5c1-3b83-4c12-9ac2-a8c07d344458"
+        },
+        {
+          "column_name": "flag_reason",
+          "datatype": "string",
+          "sample_value": "suspicious location"
+        }
+      ],
+      "business_process_overview": "Marks transactions that breach fraud-detection rules for investigation. [Updated_financial_schema.pdf p.2]"
+    },
+    {
+      "table_name": "holdings",
+      "columns": [
+        {
+          "column_name": "id",
+          "datatype": "string",
+          "sample_value": "9465f0e3-3b6c-4b18-8c27-23961ffd0e14"
+        },
+        {
+          "column_name": "customer_id",
+          "datatype": "string",
+          "sample_value": "82ad3953-3aab-4461-93c6-117c06d36661"
+        },
+        {
+          "column_name": "product_id",
+          "datatype": "string",
+          "sample_value": "8ec3d20b-d9f9-456e-963f-a099d0fbbceb"
+        }
+      ],
+      "business_process_overview": "Represents customer positions in investment or savings products for portfolio valuation. [Updated_financial_schema.pdf p.2]"
+    },
+    {
+      "table_name": "kyc_info",
+      "columns": [
+        {
+          "column_name": "customer_id",
+          "datatype": "string",
+          "sample_value": "ead74496-f8d1-4f53-b868-4e0f67b082b2"
+        },
+        {
+          "column_name": "status",
+          "datatype": "string",
+          "sample_value": "rejected"
+        }
+      ],
+      "business_process_overview": "Stores Know-Your-Customer verification outcomes for AML compliance. [Updated_financial_schema.pdf p.2]"
+    },
+    {
+      "table_name": "loans",
+      "columns": [
+        {
+          "column_name": "id",
+          "datatype": "string",
+          "sample_value": "5d146b4a-30f6-45a3-9189-a37074e021cf"
+        },
+        {
+          "column_name": "account_id",
+          "datatype": "string",
+          "sample_value": "072e4bce-1219-4657-aa03-9c9ff071241c"
+        },
+        {
+          "column_name": "product_id",
+          "datatype": "string",
+          "sample_value": "c3c3fb97-d1b5-42d0-b3e6-20fab76e3082"
+        }
+      ],
+      "business_process_overview": "Tracks individual loan contracts linked to servicing accounts and loan products. [Updated_financial_schema.pdf p.1]"
+    },
+    {
+      "table_name": "market_data",
+      "columns": [
+        {
+          "column_name": "id",
+          "datatype": "string",
+          "sample_value": "7f91a8ec-d759-4489-96e2-4d48f02f836d"
+        },
+        {
+          "column_name": "product_id",
+          "datatype": "string",
+          "sample_value": "38eb9aa9-ce38-4fab-9c8c-2e2db28e4407"
+        },
+        {
+          "column_name": "price",
+          "datatype": "decimal",
+          "sample_value": "2750.42"
+        }
+      ],
+      "business_process_overview": "Contains current market prices for tradable products, supporting valuation and risk. [Updated_financial_schema.pdf p.2]"
+    },
+    {
+      "table_name": "orders",
+      "columns": [
+        {
+          "column_name": "id",
+          "datatype": "string",
+          "sample_value": "27246885-4d04-4476-94e8-4eabe0ef69f2"
+        },
+        {
+          "column_name": "customer_id",
+          "datatype": "string",
+          "sample_value": "31203cf6-9ddf-4d58-b5ae-29918fac0cc1"
+        },
+        {
+          "column_name": "product_id",
+          "datatype": "string",
+          "sample_value": "ff46de75-38f4-4ca9-a9b0-d7cba279e380"
+        }
+      ],
+      "business_process_overview": "Captures customer instructions to buy or subscribe to products, feeding fulfilment workflows. [Updated_financial_schema.pdf p.2]"
+    },
+    {
+      "table_name": "payments",
+      "columns": [
+        {
+          "column_name": "id",
+          "datatype": "string",
+          "sample_value": "840b58a3-c645-43ba-8b52-dac03bfdaf5e"
+        },
+        {
+          "column_name": "account_id",
+          "datatype": "string",
+          "sample_value": "1c292107-2cb6-4fd3-8b1e-acf2fb7ad412"
+        },
+        {
+          "column_name": "amount",
+          "datatype": "decimal",
+          "sample_value": "1486.99"
+        }
+      ],
+      "business_process_overview": "Logs fund movements between accounts for reconciliation and statement generation. [Updated_financial_schema.pdf p.2]"
+    },
+    {
+      "table_name": "risk_scores",
+      "columns": [
+        {
+          "column_name": "customer_id",
+          "datatype": "string",
+          "sample_value": "0542cfe4-9cf4-471c-92e9-98ac1d112751"
+        },
+        {
+          "column_name": "score",
+          "datatype": "decimal",
+          "sample_value": "637"
+        }
+      ],
+      "business_process_overview": "Stores quantitative customer risk metrics for credit-decision and monitoring processes. [Updated_financial_schema.pdf p.2]"
+    },
+    {
+      "table_name": "transactions",
+      "columns": [
+        {
+          "column_name": "id",
+          "datatype": "string",
+          "sample_value": "44e9ae19-9470-4d9f-a29b-078f74f0d2b6"
+        },
+        {
+          "column_name": "account_id",
+          "datatype": "string",
+          "sample_value": "b465a818-aa20-4707-915a-165a80ae22a7"
+        },
+        {
+          "column_name": "amount",
+          "datatype": "decimal",
+          "sample_value": "4510.98"
+        },
+        {
+          "column_name": "timestamp",
+          "datatype": "timestamp",
+          "sample_value": "2024-05-30 20:11:03.616356"
+        }
+      ],
+      "business_process_overview": "Records every monetary movement on accounts, forming the backbone of ledgers, statements and analytics. [Updated_financial_schema.pdf p.2]"
+    }
+  ]
+}

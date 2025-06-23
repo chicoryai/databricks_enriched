@@ -1,0 +1,348 @@
+{
+  "tables": [
+    {
+      "table_name": "accounts",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "customer_id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "branch_id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "currency_code",
+          "column_type": "string"
+        },
+        {
+          "column_name": "balance",
+          "column_type": "string"
+        }
+      ]
+     },
+    {
+      "table_name": "cards",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "account_id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "type",
+          "column_type": "string"
+        }
+      ]
+    },
+    {
+      "table_name": "departments",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "name",
+          "column_type": "string"
+        }
+      ]
+    },
+    {
+      "table_name": "employees",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "department_id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "branch_id",
+          "column_type": "string"
+        }
+      ]
+    },
+    {
+      "table_name": "fixed_audit_logs",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "entity",
+          "column_type": "string"
+        },
+        {
+          "column_name": "entity_id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "action",
+          "column_type": "string"
+        },
+        {
+          "column_name": "timestamp",
+          "column_type": "string"
+        }
+      ]
+    },
+    {
+      "table_name": "fixed_branches",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "name",
+          "column_type": "string"
+        },
+        {
+          "column_name": "country_code",
+          "column_type": "string"
+        }
+      ]
+    },
+    {
+      "table_name": "fixed_country_ref",
+      "columns": [
+        {
+          "column_name": "code",
+          "column_type": "string"
+        },
+        {
+          "column_name": "name",
+          "column_type": "string"
+        }
+      ]
+    },
+    {
+      "table_name": "fixed_currencies",
+      "columns": [
+        {
+          "column_name": "code",
+          "column_type": "string"
+        },
+        {
+          "column_name": "name",
+          "column_type": "string"
+        }
+      ]
+    },
+    {
+      "table_name": "fixed_customers",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "name",
+          "column_type": "string"
+        },
+        {
+          "column_name": "email",
+          "column_type": "string"
+        },
+        {
+          "column_name": "dob",
+          "column_type": "string"
+        },
+        {
+          "column_name": "country_code",
+          "column_type": "string"
+        }
+      ]
+    },
+    {
+      "table_name": "fixed_exchange_rates",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "from_currency",
+          "column_type": "string"
+        },
+        {
+          "column_name": "to_currency",
+          "column_type": "string"
+        },
+        {
+          "column_name": "rate",
+          "column_type": "string"
+        }
+      ]
+    },
+    {
+      "table_name": "fixed_products",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "name",
+          "column_type": "string"
+        }
+      ]
+    },
+    {
+      "table_name": "fraud_flags",
+      "columns": [
+        {
+          "column_name": "transaction_id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "flag_reason",
+          "column_type": "string"
+        }
+      ]
+    },
+    {
+      "table_name": "holdings",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "customer_id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "product_id",
+          "column_type": "string"
+        }
+      ]
+    },
+    {
+      "table_name": "kyc_info",
+      "columns": [
+        {
+          "column_name": "customer_id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "status",
+          "column_type": "string"
+        }
+      ]
+    },
+    {
+      "table_name": "loans",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "account_id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "product_id",
+          "column_type": "string"
+        }
+      ]
+    },
+    {
+      "table_name": "market_data",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "product_id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "price",
+          "column_type": "string"
+        }
+      ]
+    },
+    {
+      "table_name": "orders",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "customer_id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "product_id",
+          "column_type": "string"
+        }
+      ]
+    },
+    {
+      "table_name": "payments",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "account_id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "amount",
+          "column_type": "string"
+        }
+      ]
+    },
+    {
+      "table_name": "risk_scores",
+      "columns": [
+        {
+          "column_name": "customer_id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "score",
+          "column_type": "string"
+        }
+      ]
+    },
+    {
+      "table_name": "transactions",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "account_id",
+          "column_type": "string"
+        },
+        {
+          "column_name": "amount",
+          "column_type": "string"
+        },
+        {
+          "column_name": "timestamp",
+          "column_type": "string"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,187 @@
+
+{
+  "tables": [
+    {
+      "table_name": "accounts",
+      "columns": [
+        { "column_name": "id",           "datatype": "string",   "sample_value": "acc-40ce0a07-8c6e-451c-b6e5-fd21de010fce" },
+        { "column_name": "customer_id",  "datatype": "string",   "sample_value": "cust-506335bb-a43c-47a6-bc63-43de9eb24958" },
+        { "column_name": "branch_id",    "datatype": "string",   "sample_value": "branch-22be3d32-982b-4250-b058-29e47f0b72f0" },
+        { "column_name": "currency_code","datatype": "string",   "sample_value": "USD" },
+        { "column_name": "balance",      "datatype": "decimal",  "sample_value": "42047.91" }
+      ],
+      "business_process_overview": "Stores customer bank-account details (ownership, branch, currency, balance) and feeds the general-ledger & reporting engines [Updated_financial_schema.pdf p.1]."
+    },
+    {
+      "table_name": "cards",
+      "columns": [
+        { "column_name": "id",         "datatype": "string",  "sample_value": "card-ba060f66-1ca0-4f13-bceb-cafbbc3439ec" },
+        { "column_name": "account_id", "datatype": "string",  "sample_value": "acc-e50e202e-094e-4af5-baf0-205d982f1d76" },
+        { "column_name": "type",       "datatype": "string",  "sample_value": "debit" }
+      ],
+      "business_process_overview": "Tracks debit / credit cards issued against accounts for transaction routing and fraud monitoring [text schema excerpt – cards]."
+    },
+    {
+      "table_name": "departments",
+      "columns": [
+        { "column_name": "id",   "datatype": "string", "sample_value": "dept-5f8e2c7b-8d44-4c07-b32e-79e30db0b8a1" },
+        { "column_name": "name", "datatype": "string", "sample_value": "Compliance" }
+      ],
+      "business_process_overview": "Reference list of internal business units used for HR, access-control, and cost-allocation [Updated_financial_schema.pdf p.2]."
+    },
+    {
+      "table_name": "employees",
+      "columns": [
+        { "column_name": "id",            "datatype": "string", "sample_value": "emp-3d9d2d6a-5c87-4723-9bfc-0d27d4a7cf20" },
+        { "column_name": "department_id", "datatype": "string", "sample_value": "dept-5f8e2c7b-8d44-4c07-b32e-79e30db0b8a1" },
+        { "column_name": "branch_id",     "datatype": "string", "sample_value": "branch-22be3d32-982b-4250-b058-29e47f0b72f0" }
+      ],
+      "business_process_overview": "Lists staff members and their organisational / branch affiliation for workflow approvals and audit trails [Updated_financial_schema.pdf p.2]."
+    },
+    {
+      "table_name": "fixed_audit_logs",
+      "columns": [
+        { "column_name": "id",        "datatype": "string",    "sample_value": "audit-7c6dbe54-9a3e-4d2a-8e5d-0b1a7fdc3e4b" },
+        { "column_name": "entity",    "datatype": "string",    "sample_value": "accounts" },
+        { "column_name": "entity_id", "datatype": "string",    "sample_value": "acc-40ce0a07-8c6e-451c-b6e5-fd21de010fce" },
+        { "column_name": "action",    "datatype": "string",    "sample_value": "update" },
+        { "column_name": "timestamp", "datatype": "timestamp", "sample_value": "2024-05-30T20:11:03Z" }
+      ],
+      "business_process_overview": "Immutable ledger of create/update/delete events across entities, enabling regulatory audit & data lineage [Updated_financial_schema.pdf p.1]."
+    },
+    {
+      "table_name": "fixed_branches",
+      "columns": [
+        { "column_name": "id",           "datatype": "string", "sample_value": "branch-001" },
+        { "column_name": "name",         "datatype": "string", "sample_value": "Cape Town Branch" },
+        { "column_name": "country_code", "datatype": "string", "sample_value": "ZA" }
+      ],
+      "business_process_overview": "Reference of physical / virtual branches used for account opening, reporting, and jurisdictional compliance [schema excerpt – fixed_branches]."
+    },
+    {
+      "table_name": "fixed_country_ref",
+      "columns": [
+        { "column_name": "code", "datatype": "string", "sample_value": "BE" },
+        { "column_name": "name", "datatype": "string", "sample_value": "Belgium" }
+      ],
+      "business_process_overview": "ISO-like country code registry leveraged by customers, branches, and regulatory filings [Updated_financial_schema.pdf p.2]."
+    },
+    {
+      "table_name": "fixed_currencies",
+      "columns": [
+        { "column_name": "code", "datatype": "string", "sample_value": "USD" },
+        { "column_name": "name", "datatype": "string", "sample_value": "US Dollar" }
+      ],
+      "business_process_overview": "Currency master providing 3-letter codes for FX, accounts, and pricing engines [Updated_financial_schema.pdf p.2]."
+    },
+    {
+      "table_name": "fixed_customers",
+      "columns": [
+        { "column_name": "id",           "datatype": "string", "sample_value": "cust-123e4567-e89b-12d3-a456-426614174000" },
+        { "column_name": "name",         "datatype": "string", "sample_value": "Jane Doe" },
+        { "column_name": "email",        "datatype": "string", "sample_value": "jane.doe@example.com" },
+        { "column_name": "dob",          "datatype": "date",   "sample_value": "1980-03-22" },
+        { "column_name": "country_code", "datatype": "string", "sample_value": "US" }
+      ],
+      "business_process_overview": "Golden-source of customer identity data used across KYC, risk, and product systems [Updated_financial_schema.pdf p.1]."
+    },
+    {
+      "table_name": "fixed_exchange_rates",
+      "columns": [
+        { "column_name": "id",            "datatype": "string",  "sample_value": "fxr-5a33d2f1-e4d9-47c8-aaec-3c9b0e54b2e0" },
+        { "column_name": "from_currency", "datatype": "string",  "sample_value": "USD" },
+        { "column_name": "to_currency",   "datatype": "string",  "sample_value": "EUR" },
+        { "column_name": "rate",          "datatype": "decimal", "sample_value": "0.91" }
+      ],
+      "business_process_overview": "Holds spot or reference FX rates to convert balances, execute trades, and value positions [Updated_financial_schema.pdf p.2]."
+    },
+    {
+      "table_name": "fixed_products",
+      "columns": [
+        { "column_name": "id",   "datatype": "string", "sample_value": "prod-9be7f3a4-2c50-4baf-b5c4-1efde2b2a4db" },
+        { "column_name": "name", "datatype": "string", "sample_value": "Prime Mortgage" }
+      ],
+      "business_process_overview": "Catalogue of financial products (loans, deposits, investments) used across holdings, loans, and orders [Updated_financial_schema.pdf p.2]."
+    },
+    {
+      "table_name": "fraud_flags",
+      "columns": [
+        { "column_name": "transaction_id", "datatype": "string", "sample_value": "txn-44e9ae19-9470-4d9f-a29b-078f74f0d2b6" },
+        { "column_name": "flag_reason",    "datatype": "string", "sample_value": "suspicious location" }
+      ],
+      "business_process_overview": "Marks transactions that triggered fraud-detection rules for downstream review and case management [Updated_financial_schema.pdf p.2]."
+    },
+    {
+      "table_name": "holdings",
+      "columns": [
+        { "column_name": "id",          "datatype": "string", "sample_value": "hold-1f2e3d4c-5b6a-7d8c-9e0f-1234567890ab" },
+        { "column_name": "customer_id", "datatype": "string", "sample_value": "cust-506335bb-a43c-47a6-bc63-43de9eb24958" },
+        { "column_name": "product_id",  "datatype": "string", "sample_value": "prod-9be7f3a4-2c50-4baf-b5c4-1efde2b2a4db" }
+      ],
+      "business_process_overview": "Links customers to the investment or loan products they currently own, feeding portfolio views and risk aggregation [Updated_financial_schema.pdf p.2]."
+    },
+    {
+      "table_name": "kyc_info",
+      "columns": [
+        { "column_name": "customer_id", "datatype": "string", "sample_value": "cust-123e4567-e89b-12d3-a456-426614174000" },
+        { "column_name": "status",      "datatype": "string", "sample_value": "verified" }
+      ],
+      "business_process_overview": "Stores the latest Know-Your-Customer verification status per customer for regulatory compliance [Updated_financial_schema.pdf p.2]."
+    },
+    {
+      "table_name": "loans",
+      "columns": [
+        { "column_name": "id",         "datatype": "string", "sample_value": "loan-8b4c2e19-1d5f-4d27-9ec2-8892d22a5e11" },
+        { "column_name": "account_id", "datatype": "string", "sample_value": "acc-40ce0a07-8c6e-451c-b6e5-fd21de010fce" },
+        { "column_name": "product_id", "datatype": "string", "sample_value": "prod-9be7f3a4-2c50-4baf-b5c4-1efde2b2a4db" }
+      ],
+      "business_process_overview": "Captures active loan contracts tied to deposit accounts and product catalogue for servicing and amortisation schedules [Updated_financial_schema.pdf p.1]."
+    },
+    {
+      "table_name": "market_data",
+      "columns": [
+        { "column_name": "id",         "datatype": "string",  "sample_value": "md-2e1f4d5c-6b7a-8c9d-0e1f-2a3b4c5d6e7f" },
+        { "column_name": "product_id", "datatype": "string",  "sample_value": "prod-9be7f3a4-2c50-4baf-b5c4-1efde2b2a4db" },
+        { "column_name": "price",      "datatype": "decimal", "sample_value": "622.78" }
+      ],
+      "business_process_overview": "Houses daily or intraday price points for tradable products, supporting valuation and risk engines [Updated_financial_schema.pdf p.2]."
+    },
+    {
+      "table_name": "orders",
+      "columns": [
+        { "column_name": "id",          "datatype": "string", "sample_value": "ord-5ad4e3c2-1b6a-7c8d-9e0f-123456789abc" },
+        { "column_name": "customer_id", "datatype": "string", "sample_value": "cust-506335bb-a43c-47a6-bc63-43de9eb24958" },
+        { "column_name": "product_id",  "datatype": "string", "sample_value": "prod-9be7f3a4-2c50-4baf-b5c4-1efde2b2a4db" }
+      ],
+      "business_process_overview": "Represents customer instructions to buy/sell products or open accounts; feeds execution and fulfilment workflows [schema excerpt – orders]."
+    },
+    {
+      "table_name": "payments",
+      "columns": [
+        { "column_name": "id",         "datatype": "string",  "sample_value": "pay-9c8d7e6f-5b4a-3c2d-1e0f-1234567890ab" },
+        { "column_name": "account_id", "datatype": "string",  "sample_value": "acc-b465a818-aa20-4707-915a-165a80ae22a7" },
+        { "column_name": "amount",     "datatype": "decimal", "sample_value": "150.00" }
+      ],
+      "business_process_overview": "Logs outgoing or incoming payment transactions (ACH, wire, card settlement) linked to accounts for reconciliation [schema excerpt – payments]."
+    },
+    {
+      "table_name": "risk_scores",
+      "columns": [
+        { "column_name": "customer_id", "datatype": "string",  "sample_value": "cust-123e4567-e89b-12d3-a456-426614174000" },
+        { "column_name": "score",       "datatype": "decimal", "sample_value": "0.78" }
+      ],
+      "business_process_overview": "Stores customer-level risk metrics used by credit, AML, and portfolio analytics teams [risk_scores doc snippet]."
+    },
+    {
+      "table_name": "transactions",
+      "columns": [
+        { "column_name": "id",         "datatype": "string",    "sample_value": "txn-44e9ae19-9470-4d9f-a29b-078f74f0d2b6" },
+        { "column_name": "account_id", "datatype": "string",    "sample_value": "acc-b465a818-aa20-4707-915a-165a80ae22a7" },
+        { "column_name": "amount",     "datatype": "decimal",   "sample_value": "4510.98" },
+        { "column_name": "timestamp",  "datatype": "timestamp", "sample_value": "2024-05-30T20:11:03Z" }
+      ],
+      "business_process_overview": "Detailed ledger of monetary movements on accounts, powering statements, fraud analytics, and regulatory reporting [text schema excerpt – transactions]."
+    }
+  ]
+}
+

@@ -1,0 +1,41 @@
+{
+  "table_name": "high_risk_customers",
+  "columns": [
+    {
+      "column_name": "customer_id",
+      "column_description": "Unique identifier for each customer",
+      "derivation_logic": "Taken from fixed_customers.id after all risk-criteria joins and filters",
+      "sample_value": "c9f4d0c1-3e8b-4ad1-a9c2-11be1d2a6c55",
+      "enhanced_column_description": "Customer primary key originating from fixed_customers that survives all risk filters"
+    },
+    {
+      "column_name": "name",
+      "column_description": "Customer’s full name",
+      "derivation_logic": "Selected directly from fixed_customers.name",
+      "sample_value": "Jane Doe",
+      "enhanced_column_description": "Customer full name supplied by fixed_customers for analyst readability"
+    },
+    {
+      "column_name": "email",
+      "column_description": "Customer’s email address",
+      "derivation_logic": "Selected directly from fixed_customers.email",
+      "sample_value": "jane.doe@example.com",
+      "enhanced_column_description": "Email pulled from fixed_customers to enable outreach by Compliance"
+    },
+    {
+      "column_name": "avg_amount_30d",
+      "column_description": "Average transaction amount in the last 30 days",
+      "derivation_logic": "AVG(transactions.amount) over 30-day window after joining through accounts",
+      "sample_value": "1523.75",
+      "enhanced_column_description": "30-day average transaction value calculated in CTE avg_txn"
+    },
+    {
+      "column_name": "kyc_status",
+      "column_description": "Latest Know-Your-Customer verification status",
+      "derivation_logic": "Fetched from kyc_info.status for the customer",
+      "sample_value": "pending",
+      "enhanced_column_description": "Current KYC status from kyc_info indicating verification state"
+    }
+  ],
+  "business_process_overview": "The high_risk_customers view equips the Risk & Compliance team to focus investigations on clients whose 30-day average spend exceeds $1 000, have at least one fraud-flagged transaction, and remain unverified in KYC—integrating behavioural, fraud, and regulatory signals into a single actionable list."
+}

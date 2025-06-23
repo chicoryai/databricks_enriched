@@ -1,0 +1,370 @@
+```json
+{
+  "tables": [
+    {
+      "table_name": "accounts",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_description": "Unique identifier of the account record. Sample value: 'acc-40ce0a07-8c6e-451c-b6e5-fd21de010fce'"
+        },
+        {
+          "column_name": "customer_id",
+          "column_description": "Identifier of the customer who owns the account. Sample value: 'cust-506335bb-a43c-47a6-bc63-43de9eb24958'"
+        },
+        {
+          "column_name": "branch_id",
+          "column_description": "Identifier of the branch where the account is maintained. Sample value: 'branch-22be3d32-982b-4250-b058-29e47f0b72f0'"
+        },
+        {
+          "column_name": "currency_code",
+          "column_description": "ISO 4217 currency code in which the account balance is denominated. Sample value: 'INR'"
+        },
+        {
+          "column_name": "balance",
+          "column_description": "Current monetary balance of the account expressed as a stringified decimal. Sample value: '42047.91'"
+        }
+      ],
+      "business_process_overview": "Stores core details for customer deposit or investment accounts, including ownership, servicing branch, operating currency and current balance."
+    },
+    {
+      "table_name": "cards",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_description": "Unique identifier of the payment card. Sample value: 'card-ba060f66-1ca0-4f13-bceb-cafbbc3439ec'"
+        },
+        {
+          "column_name": "account_id",
+          "column_description": "Identifier of the account linked to the card. Sample value: 'acc-e50e202e-094e-4af5-baf0-205d982f1d76'"
+        },
+        {
+          "column_name": "type",
+          "column_description": "Type of card issued, such as 'debit' or 'credit'. Sample value: 'credit'"
+        }
+      ],
+      "business_process_overview": "Captures information on cards issued against customer accounts, enabling card-based transactions and account linkage."
+    },
+    {
+      "table_name": "departments",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_description": "Unique identifier for the department. Sample value: 'dept-d213f493-3e4c-4c2e-9090-1d5216370f8'"
+        },
+        {
+          "column_name": "name",
+          "column_description": "Name of the department. Sample value: 'HR'"
+        }
+      ],
+      "business_process_overview": "Catalogues organisational departments for employee assignment and internal reporting."
+    },
+    {
+      "table_name": "employees",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_description": "Unique identifier for the employee. Sample value: 'emp-259bafad-49fa-4352-adaa-b23c2d62ed48'"
+        },
+        {
+          "column_name": "department_id",
+          "column_description": "Identifier of the department the employee belongs to. Sample value: 'dept-6e5e4dad-6f65-42da-bf10-81202699df60'"
+        },
+        {
+          "column_name": "branch_id",
+          "column_description": "Identifier of the branch where the employee works. Sample value: 'branch-daaeaac2-39bc-46c1-93bd-2629cad3e0ab'"
+        }
+      ],
+      "business_process_overview": "Maintains employee records with links to departments and physical branches for HR and access-control purposes."
+    },
+    {
+      "table_name": "fixed_audit_logs",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_description": "Unique identifier of the audit log entry. Sample value: 'audit-14bccd21-71d7-4c20-8a1d-251f836f52e1'"
+        },
+        {
+          "column_name": "entity",
+          "column_description": "Type of entity affected by the action (e.g., 'accounts', 'payments'). Sample value: 'loans'"
+        },
+        {
+          "column_name": "entity_id",
+          "column_description": "Identifier of the specific entity instance affected. Sample value: 'loan-d9f8fba5-5155-4d25-9736-16130e96d366'"
+        },
+        {
+          "column_name": "action",
+          "column_description": "Action performed on the entity such as 'create', 'update', 'delete', or 'access'. Sample value: 'delete'"
+        },
+        {
+          "column_name": "timestamp",
+          "column_description": "Date and time when the action occurred in ISO-8601 format. Sample value: '2024-08-09T03:22:56.810993'"
+        }
+      ],
+      "business_process_overview": "Provides an immutable history of changes and accesses to critical entities for compliance and security auditing."
+    },
+    {
+      "table_name": "fixed_branches",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_description": "Unique identifier of the branch. Sample value: 'branch-a8d21475-76f9-47a9-8879-473b97ed23a9'"
+        },
+        {
+          "column_name": "name",
+          "column_description": "Descriptive name of the branch. Sample value: 'Hamhung Branch'"
+        },
+        {
+          "column_name": "country_code",
+          "column_description": "ISO 3166-1 alpha-2 country code where the branch is located. Sample value: 'ZA'"
+        }
+      ],
+      "business_process_overview": "Stores reference data for all branch locations, enabling location-based reporting and service allocation."
+    },
+    {
+      "table_name": "fixed_country_ref",
+      "columns": [
+        {
+          "column_name": "code",
+          "column_description": "ISO 3166-1 alpha-2 country code. Sample value: 'US'"
+        },
+        {
+          "column_name": "name",
+          "column_description": "Official country name. Sample value: 'United States'"
+        }
+      ],
+      "business_process_overview": "Provides a master list of countries for consistent geographic reference across customer, branch and regulatory data."
+    },
+    {
+      "table_name": "fixed_currencies",
+      "columns": [
+        {
+          "column_name": "code",
+          "column_description": "ISO 4217 currency code. Sample value: 'JPY'"
+        },
+        {
+          "column_name": "name",
+          "column_description": "Name of the currency. Sample value: 'Japanese Yen'"
+        }
+      ],
+      "business_process_overview": "Offers a standardised reference of currencies to ensure uniform currency representation in monetary fields."
+    },
+    {
+      "table_name": "fixed_customers",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_description": "Unique identifier for each customer. Sample value: 'cust-3bdd5bf4-caa1-45c2-baf2-96608362e7d7'"
+        },
+        {
+          "column_name": "name",
+          "column_description": "Full legal name of the customer. Sample value: 'Mary Edwards'"
+        },
+        {
+          "column_name": "email",
+          "column_description": "Primary email address of the customer. Sample value: 'mary.edwards@example.com'"
+        },
+        {
+          "column_name": "dob",
+          "column_description": "Date of birth in YYYY-MM-DD format. Sample value: '1953-08-03'"
+        },
+        {
+          "column_name": "country_code",
+          "column_description": "Country of residence represented by ISO code. Sample value: 'IN'"
+        }
+      ],
+      "business_process_overview": "Holds master demographic and contact information for all customers, supporting onboarding, servicing and regulatory reporting."
+    },
+    {
+      "table_name": "fixed_exchange_rates",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_description": "Unique identifier of the exchange rate record. Sample value: 'fx-71174c80-0a28-45f9-928b-2b72a6410f69'"
+        },
+        {
+          "column_name": "from_currency",
+          "column_description": "Base currency code being converted from. Sample value: 'GBP'"
+        },
+        {
+          "column_name": "to_currency",
+          "column_description": "Target currency code being converted to. Sample value: 'EUR'"
+        },
+        {
+          "column_name": "rate",
+          "column_description": "Conversion rate from base to target currency expressed as a stringified decimal. Sample value: '1.1732'"
+        }
+      ],
+      "business_process_overview": "Stores prevailing foreign-exchange rates to support multi-currency pricing, valuation and settlement processes."
+    },
+    {
+      "table_name": "fixed_products",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_description": "Unique identifier of the financial product. Sample value: 'prod-055c4741-f67e-402d-bf77-9c246c616b32'"
+        },
+        {
+          "column_name": "name",
+          "column_description": "Name of the financial product. Sample value: 'Basic Checking Account'"
+        }
+      ],
+      "business_process_overview": "Catalogues financial products offered by the organisation, supporting product management and customer offerings."
+    },
+    {
+      "table_name": "fraud_flags",
+      "columns": [
+        {
+          "column_name": "transaction_id",
+          "column_description": "Identifier of the transaction flagged for potential fraud. Sample value: 'txn-d0fef5c1-3b83-4c12-9ac2-a8c07d344458'"
+        },
+        {
+          "column_name": "flag_reason",
+          "column_description": "Reason the transaction was flagged, e.g., 'high amount', 'suspicious location'. Sample value: 'suspicious location'"
+        }
+      ],
+      "business_process_overview": "Records transactions that trigger fraud-detection rules, supporting investigation and risk mitigation."
+    },
+    {
+      "table_name": "holdings",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_description": "Unique identifier of the holding record. Sample value: 'hold-9465f0e3-3b6c-4b18-8c27-23961ffd0e14'"
+        },
+        {
+          "column_name": "customer_id",
+          "column_description": "Identifier of the customer who owns the holding. Sample value: 'cust-82ad3953-3aab-4461-93c6-117c06d36661'"
+        },
+        {
+          "column_name": "product_id",
+          "column_description": "Identifier of the product held by the customer. Sample value: 'prod-8ec3d20b-d9f9-456e-963f-a099d0fbbceb'"
+        }
+      ],
+      "business_process_overview": "Tracks customer ownership positions in financial products, supporting portfolio valuation and reporting."
+    },
+    {
+      "table_name": "kyc_info",
+      "columns": [
+        {
+          "column_name": "customer_id",
+          "column_description": "Identifier of the customer undergoing KYC verification. Sample value: 'cust-9e20d67e-93e4-4d27-9d8d-2fc67e1407c6'"
+        },
+        {
+          "column_name": "status",
+          "column_description": "KYC verification status, e.g., 'verified', 'pending', 'rejected'. Sample value: 'verified'"
+        }
+      ],
+      "business_process_overview": "Stores customer verification outcomes to satisfy anti-money-laundering and regulatory compliance requirements."
+    },
+    {
+      "table_name": "loans",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_description": "Unique identifier of the loan record. Sample value: 'loan-5d146b4a-30f6-45a3-9189-a37074e021cf'"
+        },
+        {
+          "column_name": "account_id",
+          "column_description": "Identifier of the servicing account for the loan. Sample value: 'acc-072e4bce-1219-4657-aa03-9c9ff071241c'"
+        },
+        {
+          "column_name": "product_id",
+          "column_description": "Identifier of the loan product type. Sample value: 'prod-c3c3fb97-d1b5-42d0-b3e6-20fab76e3082'"
+        }
+      ],
+      "business_process_overview": "Tracks individual loan contracts, linking them to repayment accounts and product definitions for servicing and risk monitoring."
+    },
+    {
+      "table_name": "market_data",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_description": "Unique identifier of the market data record. Sample value: 'md-7f91a8ec-d759-4489-96e2-4d48f02f836d'"
+        },
+        {
+          "column_name": "product_id",
+          "column_description": "Identifier of the product associated with the market data. Sample value: 'prod-38eb9aa9-ce38-4fab-9c8c-2e2db28e4407'"
+        },
+        {
+          "column_name": "price",
+          "column_description": "Price value of the product expressed as a stringified decimal. Sample value: '2750.42'"
+        }
+      ],
+      "business_process_overview": "Provides pricing information for financial products, supporting valuation and market analysis."
+    },
+    {
+      "table_name": "orders",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_description": "Unique identifier of the order. Sample value: 'order-27246885-4d04-4476-94e8-4eabe0ef69f2'"
+        },
+        {
+          "column_name": "customer_id",
+          "column_description": "Identifier of the customer who placed the order. Sample value: 'cust-31203cf6-9ddf-4d58-b5ae-29918fac0cc1'"
+        },
+        {
+          "column_name": "product_id",
+          "column_description": "Identifier of the product ordered. Sample value: 'prod-ff46de75-38f4-4ca9-a9b0-d7cba279e380'"
+        }
+      ],
+      "business_process_overview": "Captures customer instructions to purchase or subscribe to financial products, feeding fulfilment and settlement systems."
+    },
+    {
+      "table_name": "payments",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_description": "Unique identifier of the payment transaction. Sample value: 'pay-840b58a3-c645-43ba-8b52-dac03bfdaf5e'"
+        },
+        {
+          "column_name": "account_id",
+          "column_description": "Identifier of the account from which the payment was made. Sample value: 'acc-1c292107-2cb6-4fd3-8b1e-acf2fb7ad412'"
+        },
+        {
+          "column_name": "amount",
+          "column_description": "Monetary amount of the payment expressed as a stringified decimal. Sample value: '1486.99'"
+        }
+      ],
+      "business_process_overview": "Logs individual payment movements between accounts, supporting reconciliation and customer statements."
+    },
+    {
+      "table_name": "risk_scores",
+      "columns": [
+        {
+          "column_name": "customer_id",
+          "column_description": "Identifier of the customer evaluated for risk. Sample value: 'cust-0542cfe4-9cf4-471c-92e9-98ac1d112751'"
+        },
+        {
+          "column_name": "score",
+          "column_description": "Numeric risk score assigned to the customer. Sample value: '637'"
+        }
+      ],
+      "business_process_overview": "Stores quantitative risk assessments for customers, informing credit decisions and ongoing monitoring."
+    },
+    {
+      "table_name": "transactions",
+      "columns": [
+        {
+          "column_name": "id",
+          "column_description": "Unique identifier of the transaction. Sample value: 'txn-44e9ae19-9470-4d9f-a29b-078f74f0d2b6'"
+        },
+        {
+          "column_name": "account_id",
+          "column_description": "Identifier of the account impacted by the transaction. Sample value: 'acc-b465a818-aa20-4707-915a-165a80ae22a7'"
+        },
+        {
+          "column_name": "amount",
+          "column_description": "Transaction amount expressed as a stringified decimal. Sample value: '4510.98'"
+        },
+        {
+          "column_name": "timestamp",
+          "column_description": "Date and time when the transaction occurred. Sample value: '2024-05-30 20:11:03.616356'"
+        }
+      ],
+      "business_process_overview": "Records monetary movements on accounts, serving as the source for statements, analytics and regulatory reporting."
+    }
+  ]
+}
+```

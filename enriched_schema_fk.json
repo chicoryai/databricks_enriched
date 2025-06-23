@@ -1,0 +1,140 @@
+[
+  {
+    "table_name": "accounts",
+    "fk_relationships": [
+      "fixed_customers",
+      "fixed_branches",
+      "fixed_currencies"
+    ],
+    "business_process_overview": "Stores every customer deposit, loan, or investment account. Each row belongs to a customer (fixed_customers.id via customer_id [Updated_financial_schema.pdf.txt p.1]), is serviced from a physical branch (fixed_branches.id via branch_id [Updated_financial_schema.pdf.txt p.1]), and is denominated in a supported currency (fixed_currencies.code via currency_code [Updated_financial_schema.pdf.txt p.2]). The table anchors core-banking processes such as balance management, interest accrual, statement production, and regulatory-capital reporting."
+  },
+  {
+    "table_name": "cards",
+    "fk_relationships": [
+      "accounts"
+    ],
+    "business_process_overview": "Contains payment cards issued on customer accounts. The account_id foreign-key links to accounts.id, ensuring that authorisations and settlements post to the correct ledger (card → account relationship described on p.1 [Updated_financial_schema.pdf.txt]). Supports card-lifecycle management, interchange settlement, and fraud monitoring."
+  },
+  {
+    "table_name": "departments",
+    "fk_relationships": [],
+    "business_process_overview": "Reference list of internal organisational units such as Retail Banking or Treasury (fields documented on p.2 [Updated_financial_schema.pdf.txt]). Used to classify employees, allocate costs, and satisfy HR as well as regulatory head-count reporting."
+  },
+  {
+    "table_name": "employees",
+    "fk_relationships": [
+      "departments",
+      "fixed_branches"
+    ],
+    "business_process_overview": "Roster of bank staff. Each employee links to a department (department_id → departments.id) and the branch where they work (branch_id → fixed_branches.id) [Updated_financial_schema.pdf.txt p.2]. These relationships facilitate branch-level staffing controls, segregation-of-duties checks, and payroll cost allocation."
+  },
+  {
+    "table_name": "fixed_audit_logs",
+    "fk_relationships": [
+      "*dynamic by entity*"
+    ],
+    "business_process_overview": "Immutable audit trail capturing create/update/delete events across master tables (entity & entity_id identify the impacted record [Updated_financial_schema.pdf.txt p.1]). Provides evidence for SOX, GDPR, and internal-controls testing."
+  },
+  {
+    "table_name": "fixed_branches",
+    "fk_relationships": [
+      "fixed_country_ref"
+    ],
+    "business_process_overview": "Master list of branch locations. country_code references fixed_country_ref.code (see p.1–2 [Updated_financial_schema.pdf.txt]), enabling branch-level P&L, liquidity monitoring, and local regulatory filings."
+  },
+  {
+    "table_name": "fixed_country_ref",
+    "fk_relationships": [],
+    "business_process_overview": "ISO-3166 country master (code, name) [Updated_financial_schema.pdf.txt p.2]. Drives cross-border reporting, sanctions screening, and region-based analytics throughout the warehouse."
+  },
+  {
+    "table_name": "fixed_currencies",
+    "fk_relationships": [],
+    "business_process_overview": "Reference table of ISO-4217 currency codes and names (documented on p.2 [Updated_financial_schema.pdf.txt]). Feeds multi-currency accounting, FX revaluation, and exposure reporting."
+  },
+  {
+    "table_name": "fixed_customers",
+    "fk_relationships": [
+      "fixed_country_ref"
+    ],
+    "business_process_overview": "Golden-source customer directory. Links to country information via country_code → fixed_country_ref.code [Updated_financial_schema.pdf.txt p.1]. Serves onboarding/KYC, customer-360 analytics, and acts as the hub for accounts, orders, holdings, and risk assessments."
+  },
+  {
+    "table_name": "fixed_exchange_rates",
+    "fk_relationships": [
+      "fixed_currencies"
+    ],
+    "business_process_overview": "Holds official FX rates with from_currency and to_currency referencing fixed_currencies.code [Updated_financial_schema.pdf.txt p.2]. Supplies conversion factors for valuation, P&L translation, and regulatory capital calculations."
+  },
+  {
+    "table_name": "fixed_products",
+    "fk_relationships": [],
+    "business_process_overview": "Catalogue of financial products such as loans, brokerage accounts, or credit cards (see p.2 [Updated_financial_schema.pdf.txt]). Acts as a dimension for orders, holdings, loans, and market_data to enable product-level profitability and risk measurement."
+  },
+  {
+    "table_name": "fraud_flags",
+    "fk_relationships": [
+      "transactions"
+    ],
+    "business_process_overview": "Records anomalies detected on transactions; transaction_id references transactions.id [Updated_financial_schema.pdf.txt p.2]. Supports case management, SAR filing, and model feedback loops for fraud-detection engines."
+  },
+  {
+    "table_name": "holdings",
+    "fk_relationships": [
+      "fixed_customers",
+      "fixed_products"
+    ],
+    "business_process_overview": "Snapshot of customer investment positions (customer_id → fixed_customers.id; product_id → fixed_products.id) [Updated_financial_schema.pdf.txt p.2]. Enables portfolio valuation, concentration-risk checks, and performance reporting."
+  },
+  {
+    "table_name": "kyc_info",
+    "fk_relationships": [
+      "fixed_customers"
+    ],
+    "business_process_overview": "Stores Know-Your-Customer verification results for each customer (customer_id → fixed_customers.id) [Updated_financial_schema.pdf.txt p.3]. Drives onboarding status, periodic review scheduling, and compliance reporting."
+  },
+  {
+    "table_name": "loans",
+    "fk_relationships": [
+      "accounts",
+      "fixed_products"
+    ],
+    "business_process_overview": "Details active credit facilities. Each loan ties to the servicing account (account_id → accounts.id) and the product type (product_id → fixed_products.id) [Updated_financial_schema.pdf.txt p.3]. Supports amortisation schedules, collateral tracking, and credit-risk capital calculations."
+  },
+  {
+    "table_name": "market_data",
+    "fk_relationships": [
+      "fixed_products"
+    ],
+    "business_process_overview": "Captures real-time or end-of-day prices for tradable products (product_id → fixed_products.id) [Updated_financial_schema.pdf.txt p.3]. Feeds valuation engines, VaR calculations, and price-based risk controls."
+  },
+  {
+    "table_name": "orders",
+    "fk_relationships": [
+      "fixed_customers",
+      "fixed_products"
+    ],
+    "business_process_overview": "Represents customer trade orders. Links to the requester (customer_id → fixed_customers.id) and the instrument (product_id → fixed_products.id) [Updated_financial_schema.pdf.txt p.3]. Facilitates order-management workflows, execution compliance, and MiFID-II reporting."
+  },
+  {
+    "table_name": "payments",
+    "fk_relationships": [
+      "accounts"
+    ],
+    "business_process_overview": "Outgoing or incoming cash movements outside core ledger postings, such as bill pay or external transfers. account_id references accounts.id [Updated_financial_schema.pdf.txt p.3], enabling settlement, liquidity forecasting, and reconciliation against clearing systems."
+  },
+  {
+    "table_name": "risk_scores",
+    "fk_relationships": [
+      "fixed_customers"
+    ],
+    "business_process_overview": "Stores quantitative risk ratings assigned to customers (customer_id → fixed_customers.id) [Updated_financial_schema.pdf.txt p.3]. Used by credit-decision engines, limit management, and Basel regulatory capital modelling."
+  },
+  {
+    "table_name": "transactions",
+    "fk_relationships": [
+      "accounts"
+    ],
+    "business_process_overview": "Records every ledger-posting event; each row is anchored to an account (account_id → accounts.id) [Updated_financial_schema.pdf.txt p.0]. Provides the foundation for balance computation, statement generation, fraud analytics, and GL feeds required for financial close."
+  }
+]

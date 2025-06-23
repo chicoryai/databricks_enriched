@@ -1,0 +1,104 @@
+
+[
+  {
+    "table_name": "accounts",
+    "fk_relationships": ["fixed_customers", "fixed_branches", "fixed_currencies"],
+    "business_process_overview": "Holds the master record for every customer deposit or trading account, tying the owner (fixed_customers.id) to its servicing branch (fixed_branches.id) and functional currency (fixed_currencies.code); the balance drives general-ledger postings, liquidity reporting, and interest accruals [Updated_financial_schema page 1]."
+  },
+  {
+    "table_name": "cards",
+    "fk_relationships": ["accounts"],
+    "business_process_overview": "Lists every debit or credit card issued against an account; account_id links to accounts.id so that card authorisations, chargebacks, and interchange fee settlements can be rolled up to the parent account for reconciliation [Updated_financial_schema page 1]."
+  },
+  {
+    "table_name": "departments",
+    "fk_relationships": [],
+    "business_process_overview": "Reference list of organisational departments (e.g., Compliance, Treasury); feeds HR payroll cost-centre allocations and Segregation-of-Duties controls [Updated_financial_schema page 2]."
+  },
+  {
+    "table_name": "employees",
+    "fk_relationships": ["departments", "fixed_branches"],
+    "business_process_overview": "Stores employee workforce data, linking each staff member to their department (departments.id) and physical branch (fixed_branches.id); supports head-count reporting, branch staffing audits, and access-rights provisioning [Updated_financial_schema page 2]."
+  },
+  {
+    "table_name": "fixed_audit_logs",
+    "fk_relationships": [],
+    "business_process_overview": "Captures immutable audit events for any entity in the platform; the polymorphic entity/entity_id fields let compliance trace create-update-delete activity for SOX and GDPR logging [Updated_financial_schema page 1]."
+  },
+  {
+    "table_name": "fixed_branches",
+    "fk_relationships": ["fixed_country_ref"],
+    "business_process_overview": "Directory of the bank’s brick-and-mortar or virtual branches, each tagged to its jurisdiction via country_code → fixed_country_ref.code; enables branch-level P&L, capital allocation, and regulatory filings by country [Updated_financial_schema page 1]."
+  },
+  {
+    "table_name": "fixed_country_ref",
+    "fk_relationships": [],
+    "business_process_overview": "ISO-country reference table used across the warehouse for geopolitical grouping, sanctions screening, and localisation logic [Updated_financial_schema page 2]."
+  },
+  {
+    "table_name": "fixed_currencies",
+    "fk_relationships": [],
+    "business_process_overview": "Static list of ISO-4217 currency codes powering multi-currency accounting, FX conversion, and settlement workflows [Updated_financial_schema page 2]."
+  },
+  {
+    "table_name": "fixed_customers",
+    "fk_relationships": ["fixed_country_ref"],
+    "business_process_overview": "Golden-source customer profile storing PII and residency (country_code → fixed_country_ref); feeds KYC screening, marketing segmentation, and customer-level risk aggregation [Updated_financial_schema page 1]."
+  },
+  {
+    "table_name": "fixed_exchange_rates",
+    "fk_relationships": ["fixed_currencies"],
+    "business_process_overview": "Holds daily FX rates (from_currency / to_currency linking to fixed_currencies.code) used for multi-currency valuation, cross-border payment conversion, and VaR calculations [Updated_financial_schema page 2]."
+  },
+  {
+    "table_name": "fixed_products",
+    "fk_relationships": [],
+    "business_process_overview": "Canonical catalog of financial products (loans, brokerage accounts, funds) referenced by orders, holdings, and loans to ensure consistent product taxonomy for revenue attribution [Updated_financial_schema page 3]."
+  },
+  {
+    "table_name": "fraud_flags",
+    "fk_relationships": ["transactions"],
+    "business_process_overview": "Stores machine- or rule-generated alerts linking to suspicious transactions (transactions.id); feeds AML investigators and real-time card-blocking logic [Updated_financial_schema page 3]."
+  },
+  {
+    "table_name": "holdings",
+    "fk_relationships": ["fixed_customers", "fixed_products"],
+    "business_process_overview": "Represents customers’ current asset positions, joining the owner (fixed_customers.id) with the instrument (fixed_products.id); drives AUM reporting, fee billing, and margin monitoring [Updated_financial_schema page 3]."
+  },
+  {
+    "table_name": "kyc_info",
+    "fk_relationships": ["fixed_customers"],
+    "business_process_overview": "Tracks the latest Know-Your-Customer verification status for each client (customer_id → fixed_customers.id); consumed by onboarding, periodic review cycles, and transaction blocking rules [Updated_financial_schema page 3]."
+  },
+  {
+    "table_name": "loans",
+    "fk_relationships": ["accounts", "fixed_products"],
+    "business_process_overview": "Loan contracts issued against funding accounts (accounts.id) and classified by product_id (fixed_products.id); amortisation schedules and regulatory capital computations source data here [Updated_financial_schema page 3]."
+  },
+  {
+    "table_name": "market_data",
+    "fk_relationships": ["fixed_products"],
+    "business_process_overview": "Stores intraday or end-of-day price points for tradable products (product_id → fixed_products.id), fuelling portfolio valuation, risk (VaR) models, and customer statement pricing [Updated_financial_schema page 3]."
+  },
+  {
+    "table_name": "orders",
+    "fk_relationships": ["fixed_customers", "fixed_products"],
+    "business_process_overview": "Captures customer trade or purchase orders, linking the requester (fixed_customers.id) to the instrument (fixed_products.id); acts as the order-management source for execution, confirmation, and commissions calculation [Updated_financial_schema page 3]."
+  },
+  {
+    "table_name": "payments",
+    "fk_relationships": ["accounts"],
+    "business_process_overview": "Logs outbound or inbound payments against an account (account_id → accounts.id); feeds cash-management, settlement reconciliation, and overdraft monitoring [Updated_financial_schema page 3]."
+  },
+  {
+    "table_name": "risk_scores",
+    "fk_relationships": ["fixed_customers"],
+    "business_process_overview": "Stores computed customer risk ratings (e.g., credit or AML) tied to fixed_customers.id; leveraged by credit decision engines and enhanced due-diligence triggers [Updated_financial_schema page 3]."
+  },
+  {
+    "table_name": "transactions",
+    "fk_relationships": ["accounts"],
+    "business_process_overview": "Records every monetary movement posted to an account (account_id → accounts.id), forming the core ledger for balance roll-ups, statement generation, fraud analytics, and regulatory reporting [Updated_financial_schema page 1]."
+  }
+]
+
